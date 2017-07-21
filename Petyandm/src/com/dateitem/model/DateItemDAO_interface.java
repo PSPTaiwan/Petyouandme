@@ -4,11 +4,11 @@ import java.util.List;
 
 
 	public interface DateItemDAO_interface {
-		void add(DateItem dateItem);
-		void update(DateItem dateItem);
+		void add(DateItemVO dateItem);
+		void update(DateItemVO dateItem);
 		void delete(int dateItemNo);
-		DateItem findByPk(int dateItemNo);
-		List<DateItem> getAll();
+		DateItemVO findByPk(int dateItemNo);
+		List<DateItemVO> getAll();
 	}
 	
 

@@ -3,8 +3,9 @@ package com.dateitem.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
-public class DateItem implements Serializable{
+public class DateItemVO implements Serializable{
 	
 	private Integer dateItemNo;
 	private Integer sellerNo;
@@ -12,25 +13,27 @@ public class DateItem implements Serializable{
 	private String dateItemTitle;
 	private byte[] dateItemImg;
 	private String dateItemText;
-	private Date dateItemTime;
-	private Date dateMeetingTime;
+	private Timestamp dateItemTime;
+	private Timestamp dateMeetingTime;
 	private String dateItemLocate;
 	private Integer dateItemPeople;
 	private Boolean hasMate;
 	private Integer dateItemPrice;
 	private Integer dateItemStatus;
+	private Integer dateItemShow;
 	private Integer dateItemViewer;
 	private Integer buyerNo;
 	private Boolean isQRCChecked;
 	private Integer buyerRep;
 	private Integer sellerRep;
+	private Boolean isInstantDate;
 	
-	DateItem(){}
+	DateItemVO(){}
 
-	public DateItem(Integer dateItemNo, Integer sellerNo, Integer restListNo, String dateItemTitle, byte[] dateItemImg,
-			String dateItemText, Date dateItemTime, Date dateMeetingTime, String dateItemLocate, Integer dateItemPeople,
-			Boolean hasMate, Integer dateItemPrice, Integer dateItemStatus, Integer dateItemViewer, Integer buyerNo,
-			Boolean isQRCChecked, Integer buyerRep, Integer sellerRep) {
+	public DateItemVO(Integer dateItemNo, Integer sellerNo, Integer restListNo, String dateItemTitle, byte[] dateItemImg,
+			String dateItemText, Timestamp dateItemTime, Timestamp dateMeetingTime, String dateItemLocate, Integer dateItemPeople,
+			Boolean hasMate, Integer dateItemPrice, Integer dateItemStatus, Integer dateItemShow, Integer dateItemViewer, Integer buyerNo,
+			Boolean isQRCChecked, Integer buyerRep, Integer sellerRep, Boolean isInstantDate) {
 		super();
 		this.dateItemNo = dateItemNo;
 		this.sellerNo = sellerNo;
@@ -45,11 +48,13 @@ public class DateItem implements Serializable{
 		this.hasMate = hasMate;
 		this.dateItemPrice = dateItemPrice;
 		this.dateItemStatus = dateItemStatus;
+		this.dateItemShow = dateItemShow;
 		this.dateItemViewer = dateItemViewer;
 		this.buyerNo = buyerNo;
 		this.isQRCChecked = isQRCChecked;
 		this.buyerRep = buyerRep;
 		this.sellerRep = sellerRep;
+		this.isInstantDate = isInstantDate;
 	}
 
 	public Integer getDateItemNo() {
@@ -100,19 +105,19 @@ public class DateItem implements Serializable{
 		this.dateItemText = dateItemText;
 	}
 
-	public Date getDateItemTime() {
+	public Timestamp getDateItemTime() {
 		return dateItemTime;
 	}
 
-	public void setDateItemTime(Date dateItemTime) {
+	public void setDateItemTime(Timestamp dateItemTime) {
 		this.dateItemTime = dateItemTime;
 	}
 
-	public Date getDateMeetingTime() {
+	public Timestamp getDateMeetingTime() {
 		return dateMeetingTime;
 	}
 
-	public void setDateMeetingTime(Date dateMeetingTime) {
+	public void setDateMeetingTime(Timestamp dateMeetingTime) {
 		this.dateMeetingTime = dateMeetingTime;
 	}
 
@@ -194,12 +199,22 @@ public class DateItem implements Serializable{
 
 	public void setSellerRep(Integer sellerRep) {
 		this.sellerRep = sellerRep;
+	}
+
+	public Integer getDateItemShow() {
+		return dateItemShow;
+	}
+
+	public void setDateItemShow(Integer dateItemShow) {
+		this.dateItemShow = dateItemShow;
+	}
+
+	public Boolean getIsInstantDate() {
+		return isInstantDate;
+	}
+
+	public void setIsInstantDate(Boolean isInstantDate) {
+		this.isInstantDate = isInstantDate;
 	};
-	
-	
-	
-	
-	
-	
-	
+		
 }

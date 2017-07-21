@@ -1,28 +1,32 @@
 package com.dateitem.model;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import java.sql.Clob;
 
-public class DateItemJDBCDAO implements DateItemDAO_interface{
+public class DateItemDAO implements DateItemDAO_interface{
 
-	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "petym";
-	private static final String PASSWORD = "123456";
-	
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = "INSERT INTO DATEITEM(DATEITEMNO,SELLERNO,RESTLISTNO,"
 			+ "DATEITEMTITLE,DATEITEMIMG,DATEITEMTEXT,DATEITEMTIME,DATEMEETINGTIME,DATEITEMLOCATE,"
@@ -32,7 +36,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 	private static final String UPDATE_STMT = "UPDATE DATEITEM SET DATEITEMNO = ?, SELLERNO = ?, RESTLISTNO = ?, "
 			+ "DATEITEMTITLE = ?, DATEITEMIMG = ?, DATEITEMTEXT = ?, DATEITEMTIME = ?, DATEMEETINGTIME = ?, "
 			+ "DATEITEMLOCATE = ? ,DATEITEMPEOPLE = ? , HASMATE =?, DATEITEMPRICE =? , DATEITEMSTATUS=? ,"
-			+ "DATEITEMSHOW=?, DATEITEMVIEWER=?, BUYERNO=?, ISQRCCHECKED=?, BUYERREP=? , SELLERREP=? ,ISINSTANTDATE=? WHERE DATEITEMNO =　?";
+			+ "DATEITEMSHOW=?, DATEITEMVIEWER=?, BUYERNO=?, ISQRCCHECKED=?, BUYERREP=? , SELLERREP=?, ISINSTANTDATE=? WHERE DATEITEMNO =　?";
 	private static final String DELETE_STMT = "DELETE FROM DATEITEM WHERE DATEITEMNO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM DATEITEM WHERE DATEITEMNO = ?";
 	private static final String GET_ALL = "SELECT * FROM DATEITEM";
@@ -45,8 +49,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		Connection con=null;
 		
 		try {
-			Class.forName(DRIVER);
-			con=DriverManager.getConnection(URL,USER,PASSWORD);
+			con = ds.getConnection();
 			pstmt=con.prepareStatement(INSERT_STMT);
 			pstmt.setInt(1, dateItemVO.getSellerNo());
 			pstmt.setInt(2, dateItemVO.getRestListNo());
@@ -73,8 +76,6 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 			pstmt.setBoolean(19, dateItemVO.getIsInstantDate());
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -103,8 +104,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		Connection con=null;
 		
 		try {
-			Class.forName(DRIVER);
-			con=DriverManager.getConnection(URL,USER,PASSWORD);
+			con = ds.getConnection();
 			pstmt=con.prepareStatement(UPDATE_STMT);
 			pstmt.setInt(1, dateItemVO.getDateItemNo());
 			pstmt.setInt(2, dateItemVO.getSellerNo());
@@ -133,9 +133,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 			pstmt.setInt(21, dateItemVO.getDateItemNo());
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}  catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -164,15 +162,12 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		Connection con=null;
 		
 		try {
-			Class.forName(DRIVER);
-			con=DriverManager.getConnection(URL,USER,PASSWORD);
+			con = ds.getConnection();
 			pstmt=con.prepareStatement(DELETE_STMT);
 			pstmt.setInt(1, dateItemNo);
 			pstmt.executeUpdate();
 
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}  catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -203,13 +198,12 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		DateItemVO dateItemVO=null;
 		
 		try {
-			Class.forName(DRIVER);
-			con=DriverManager.getConnection(URL,USER,PASSWORD);
+			con = ds.getConnection();
 			pstmt=con.prepareStatement(FIND_BY_PK);
 			pstmt.setInt(1, dateItemNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()){
-				dateItemVO =new DateItemVO();	
+				dateItemVO=new DateItemVO();
 				
 				dateItemVO.setDateItemNo(rs.getInt("dateItemNo"));
 				dateItemVO.setSellerNo(rs.getInt("sellerNo"));
@@ -234,9 +228,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 				
 			}
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}  catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -274,8 +266,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		ResultSet rs=null;
 		
 		try {
-			Class.forName(DRIVER);
-			con=DriverManager.getConnection(URL,USER,PASSWORD);
+			con = ds.getConnection();
 			pstmt=con.prepareStatement(GET_ALL);
 			rs=pstmt.executeQuery();
 			while(rs.next()){
@@ -299,13 +290,11 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 				dateItemVO.setIsQRCChecked(rs.getBoolean("isQRCChecked"));
 				dateItemVO.setBuyerRep(rs.getInt("buyerRep"));
 				dateItemVO.setSellerRep(rs.getInt("SellerRep"));
-				dateItemVO.setIsInstantDate(rs.getBoolean("isInstantDate"));
+				dateItemVO.setIsInstantDate(rs.getBoolean("isInstantDate"));	
 				dateItemList.add(dateItemVO);		
 			}
 			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
+		}  catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -335,106 +324,4 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		return dateItemList;
 	}
 	
-	// Main方法
-	public static void main(String [ ] args) throws IOException{
-		byte[] testImg = getPictureByteArray("C:\\Users\\PSP\\Desktop\\bh.png");		
-		DateItemJDBCDAO dao=new DateItemJDBCDAO();
-		DateItemVO dateItemVO = new DateItemVO();
-		
-		
-
-	
-		dateItemVO.setSellerNo(5001);
-		dateItemVO.setRestListNo(7001);
-		dateItemVO.setDateItemTitle("陽光午後約會大好");
-		dateItemVO.setDateItemImg(testImg);
-		dateItemVO.setDateItemText("來進行一場午後的約會吧測試測試");
-		
-		GregorianCalendar cal = new GregorianCalendar(2017,7,31,18,30,59);
-		java.util.Date ud = cal.getTime();
-		Timestamp ts= new Timestamp(ud.getTime());
-		
-		dateItemVO.setDateItemTime(ts);
-		dateItemVO.setDateMeetingTime(ts);	
-		dateItemVO.setDateItemLocate("台北市");
-		dateItemVO.setDateItemPeople(0);
-		dateItemVO.setHasMate(false);
-		dateItemVO.setDateItemPrice(1500);
-		dateItemVO.setDateItemStatus(1);
-		dateItemVO.setDateItemShow(0);
-		dateItemVO.setDateItemViewer(1600);
-		dateItemVO.setBuyerNo(5002);
-		dateItemVO.setIsQRCChecked(false);
-		dateItemVO.setBuyerRep(0);
-		dateItemVO.setSellerRep(0);
-		dateItemVO.setIsInstantDate(false);
-		
-		//新增
-		dao.add(dateItemVO);		
-		System.out.println("已新增第1筆");
-		dao.add(dateItemVO);
-		System.out.println("已新增第2筆");
-		dao.add(dateItemVO);
-		System.out.println("已新增第3筆");
-		
-		//修改
-		dateItemVO.setDateItemNo(4002);
-		dateItemVO.setDateItemTitle("已修改已修改過了");	
-		dao.update(dateItemVO);
-		System.out.println("已修改第二筆");
-		
-//		//刪除
-//		dao.delete(4001);
-//		System.out.println("已刪除4001");
-//		
-//		//查詢 by PK
-//
-//		
-//		
-//		dateItemVO = dao.findByPk(4006);
-//		dateItemVO.setDateItemTime(ts);
-//		System.out.println(dateItemVO.getDateItemLocate());
-//		System.out.println(dateItemVO.getDateItemText());
-//		System.out.println(dateItemVO.getDateItemNo());
-//		System.out.println(dateItemVO.getDateItemPrice());
-//		System.out.println(dateItemVO.getDateItemTime());
-//		System.out.println(dateItemVO.getDateMeetingTime());
-//		
-//		
-//		//getAll
-//		List<DateItemVO> dateItemList = dao.getAll();
-//		for(DateItemVO dateItem : dateItemList){
-//		System.out.println(dateItem.getDateItemNo());
-//		System.out.println(dateItem.getDateItemTitle());
-//		System.out.println(dateItem.getDateItemPrice());
-//		System.out.println(dateItem.getSellerNo());
-//		System.out.println(dateItem.getDateItemShow());
-//		System.out.println(dateItem.getDateItemText());
-//		System.out.println(dateItem.getRestListNo());
-//		System.out.println(dateItem.getDateMeetingTime());
-//		System.out.println(dateItem.getDateItemTime());
-//		System.out.println(dateItem.getIsInstantDate());
-//	}
-		
-		
-	}
-	
-	public static byte[] getPictureByteArray(String path) throws IOException {
-		File file = new File(path);
-		FileInputStream fis = new FileInputStream(file);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
-		byte[] buffer = new byte[8192];
-		int i;
-		while ((i = fis.read(buffer)) != -1) {
-			baos.write(buffer, 0, i);
-		}
-		baos.close();
-		fis.close();
-
-		return baos.toByteArray();
-	}
-	
 }
-
-
