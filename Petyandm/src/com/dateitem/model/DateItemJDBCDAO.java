@@ -51,12 +51,15 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 			pstmt.setInt(1, dateItemVO.getSellerNo());
 			pstmt.setInt(2, dateItemVO.getRestListNo());
 			pstmt.setString(3, dateItemVO.getDateItemTitle());
-			Blob blob=con.createBlob();
-			blob.setBytes(1, dateItemVO.getDateItemImg());
-			pstmt.setBlob(4, blob);
-			Clob clob=con.createClob();
-			clob.setString(1, dateItemVO.getDateItemText());
-			pstmt.setClob(5, clob);
+//			Blob blob=con.createBlob();
+//			blob.setBytes(1, dateItemVO.getDateItemImg());
+//			pstmt.setBlob(4, blob);
+			pstmt.setBytes(4, dateItemVO.getDateItemImg());
+			
+//			Clob clob=con.createClob();
+//			clob.setString(1, dateItemVO.getDateItemText());
+//			pstmt.setClob(5, clob);
+			pstmt.setString(5, dateItemVO.getDateItemText());
 			pstmt.setTimestamp(6, dateItemVO.getDateItemTime());
 			pstmt.setTimestamp(7, dateItemVO.getDateMeetingTime());
 			pstmt.setString(8, dateItemVO.getDateItemLocate());
@@ -348,7 +351,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		dateItemVO.setRestListNo(7001);
 		dateItemVO.setDateItemTitle("陽光午後約會大好");
 		dateItemVO.setDateItemImg(testImg);
-		dateItemVO.setDateItemText("來進行一場午後的約會吧測試測試");
+		dateItemVO.setDateItemText("22來進行一場午後的約會吧測試測試");
 		
 		GregorianCalendar cal = new GregorianCalendar(2017,7,31,18,30,59);
 		java.util.Date ud = cal.getTime();
@@ -372,16 +375,16 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		//新增
 		dao.add(dateItemVO);		
 		System.out.println("已新增第1筆");
-		dao.add(dateItemVO);
-		System.out.println("已新增第2筆");
-		dao.add(dateItemVO);
-		System.out.println("已新增第3筆");
-		
-		//修改
-		dateItemVO.setDateItemNo(4002);
-		dateItemVO.setDateItemTitle("已修改已修改過了");	
-		dao.update(dateItemVO);
-		System.out.println("已修改第二筆");
+//		dao.add(dateItemVO);
+//		System.out.println("已新增第2筆");
+//		dao.add(dateItemVO);
+//		System.out.println("已新增第3筆");
+//		
+//		//修改
+//		dateItemVO.setDateItemNo(4002);
+//		dateItemVO.setDateItemTitle("已修改已修改過了");	
+//		dao.update(dateItemVO);
+//		System.out.println("已修改第二筆");
 		
 //		//刪除
 //		dao.delete(4001);
@@ -402,19 +405,19 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 //		
 //		
 //		//getAll
-//		List<DateItemVO> dateItemList = dao.getAll();
-//		for(DateItemVO dateItem : dateItemList){
-//		System.out.println(dateItem.getDateItemNo());
-//		System.out.println(dateItem.getDateItemTitle());
-//		System.out.println(dateItem.getDateItemPrice());
-//		System.out.println(dateItem.getSellerNo());
-//		System.out.println(dateItem.getDateItemShow());
-//		System.out.println(dateItem.getDateItemText());
-//		System.out.println(dateItem.getRestListNo());
-//		System.out.println(dateItem.getDateMeetingTime());
-//		System.out.println(dateItem.getDateItemTime());
-//		System.out.println(dateItem.getIsInstantDate());
-//	}
+		List<DateItemVO> dateItemList = dao.getAll();
+		for(DateItemVO dateItem : dateItemList){
+		System.out.println(dateItem.getDateItemNo());
+		System.out.println(dateItem.getDateItemTitle());
+		System.out.println(dateItem.getDateItemPrice());
+		System.out.println(dateItem.getSellerNo());
+		System.out.println(dateItem.getDateItemShow());
+		System.out.println(dateItem.getDateItemText());
+		System.out.println(dateItem.getRestListNo());
+		System.out.println(dateItem.getDateMeetingTime());
+		System.out.println(dateItem.getDateItemTime());
+		System.out.println(dateItem.getIsInstantDate());
+	}
 		
 		
 	}
