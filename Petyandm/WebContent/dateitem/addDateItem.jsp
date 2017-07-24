@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.emp.model.*"%>
+<%@ page import="com.dateitem.model.*"%>
 <%
-EmpVO empVO = (EmpVO) request.getAttribute("empVO");
+DateItemVO dateItemVO = (DateItemVO) request.getAttribute("dateItemVO");
 %>
 
 <html>

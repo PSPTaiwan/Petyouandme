@@ -27,12 +27,12 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 	private static final String INSERT_STMT = "INSERT INTO DATEITEM(DATEITEMNO,SELLERNO,RESTLISTNO,"
 			+ "DATEITEMTITLE,DATEITEMIMG,DATEITEMTEXT,DATEITEMTIME,DATEMEETINGTIME,DATEITEMLOCATE,"
 			+ "DATEITEMPEOPLE,HASMATE,DATEITEMPRICE,DATEITEMSTATUS,DATEITEMSHOW,DATEITEMVIEWER,BUYERNO,"
-			+ "ISQRCCHECKED,BUYERREP,SELLERREP,ISINSTANTDATE)"
-			+ " VALUES(DATEITEMNO_SQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ "ISQRCCHECKED,BUYERREP,SELLERREP,ISINSTANTDATE,PETNO)"
+			+ " VALUES(DATEITEMNO_SQ.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE_STMT = "UPDATE DATEITEM SET DATEITEMNO = ?, SELLERNO = ?, RESTLISTNO = ?, "
 			+ "DATEITEMTITLE = ?, DATEITEMIMG = ?, DATEITEMTEXT = ?, DATEITEMTIME = ?, DATEMEETINGTIME = ?, "
 			+ "DATEITEMLOCATE = ? ,DATEITEMPEOPLE = ? , HASMATE =?, DATEITEMPRICE =? , DATEITEMSTATUS=? ,"
-			+ "DATEITEMSHOW=?, DATEITEMVIEWER=?, BUYERNO=?, ISQRCCHECKED=?, BUYERREP=? , SELLERREP=? ,ISINSTANTDATE=? WHERE DATEITEMNO =¡@?";
+			+ "DATEITEMSHOW=?, DATEITEMVIEWER=?, BUYERNO=?, ISQRCCHECKED=?, BUYERREP=? , SELLERREP=? ,ISINSTANTDATE=? , PETNO=? WHERE DATEITEMNO =¡@?";
 	private static final String DELETE_STMT = "DELETE FROM DATEITEM WHERE DATEITEMNO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM DATEITEM WHERE DATEITEMNO = ?";
 	private static final String GET_ALL = "SELECT * FROM DATEITEM";
@@ -74,6 +74,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 			pstmt.setInt(17, dateItemVO.getBuyerRep());
 			pstmt.setInt(18, dateItemVO.getSellerRep());
 			pstmt.setBoolean(19, dateItemVO.getIsInstantDate());
+			pstmt.setInt(20, dateItemVO.getPetNo());
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -133,7 +134,8 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 			pstmt.setInt(18, dateItemVO.getBuyerRep());
 			pstmt.setInt(19, dateItemVO.getSellerRep());
 			pstmt.setBoolean(20, dateItemVO.getIsInstantDate());
-			pstmt.setInt(21, dateItemVO.getDateItemNo());
+			pstmt.setInt(21,dateItemVO.getPetNo());
+			pstmt.setInt(22, dateItemVO.getDateItemNo());
 			pstmt.executeUpdate();
 
 		} catch (ClassNotFoundException e) {
@@ -234,6 +236,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 				dateItemVO.setBuyerRep(rs.getInt("buyerRep"));
 				dateItemVO.setSellerRep(rs.getInt("SellerRep"));
 				dateItemVO.setIsInstantDate(rs.getBoolean("isInstantDate"));
+				dateItemVO.setPetNo(rs.getInt("petNo"));
 				
 			}
 			
@@ -303,6 +306,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 				dateItemVO.setBuyerRep(rs.getInt("buyerRep"));
 				dateItemVO.setSellerRep(rs.getInt("SellerRep"));
 				dateItemVO.setIsInstantDate(rs.getBoolean("isInstantDate"));
+				dateItemVO.setPetNo(rs.getInt("petNo"));
 				dateItemList.add(dateItemVO);		
 			}
 			
@@ -371,6 +375,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		dateItemVO.setBuyerRep(0);
 		dateItemVO.setSellerRep(0);
 		dateItemVO.setIsInstantDate(false);
+		dateItemVO.setPetNo(1001);
 		
 		//·s¼W
 		dao.add(dateItemVO);		

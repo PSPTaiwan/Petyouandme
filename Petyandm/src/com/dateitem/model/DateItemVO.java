@@ -27,13 +27,14 @@ public class DateItemVO implements Serializable{
 	private Integer buyerRep;
 	private Integer sellerRep;
 	private Boolean isInstantDate;
+	private Integer petNo;
 	
 	DateItemVO(){}
 
 	public DateItemVO(Integer dateItemNo, Integer sellerNo, Integer restListNo, String dateItemTitle, byte[] dateItemImg,
 			String dateItemText, Timestamp dateItemTime, Timestamp dateMeetingTime, String dateItemLocate, Integer dateItemPeople,
 			Boolean hasMate, Integer dateItemPrice, Integer dateItemStatus, Integer dateItemShow, Integer dateItemViewer, Integer buyerNo,
-			Boolean isQRCChecked, Integer buyerRep, Integer sellerRep, Boolean isInstantDate) {
+			Boolean isQRCChecked, Integer buyerRep, Integer sellerRep, Boolean isInstantDate, Integer petNo) {
 		super();
 		this.dateItemNo = dateItemNo;
 		this.sellerNo = sellerNo;
@@ -55,6 +56,7 @@ public class DateItemVO implements Serializable{
 		this.buyerRep = buyerRep;
 		this.sellerRep = sellerRep;
 		this.isInstantDate = isInstantDate;
+		this.petNo = petNo;
 	}
 
 	public Integer getDateItemNo() {
@@ -215,6 +217,18 @@ public class DateItemVO implements Serializable{
 
 	public void setIsInstantDate(Boolean isInstantDate) {
 		this.isInstantDate = isInstantDate;
-	};
 		
+	
+	}
+
+	public Integer getPetNo() {
+		return petNo;
+	}
+
+	public void setPetNo(Integer petNo) {
+		this.petNo = petNo;
+	};
+	
+	
+	
 }

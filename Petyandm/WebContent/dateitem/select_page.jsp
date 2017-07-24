@@ -1,16 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<head><title>IBM Emp: Home</title></head>
+<head><title>IBM DateItem: Home</title></head>
 <body bgcolor='white'>
 
 <table border='1' cellpadding='5' cellspacing='0' width='400'>
   <tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-    <td><h3>IBM Emp: Home</h3><font color=red>( MVC )</font></td>
+    <td><h3>IBM DateItem: Home</h3><font color=red>( MVC )</font></td>
   </tr>
 </table>
 
-<p>This is the Home page for IBM Emp: Home</p>
+<p>This is the Home page for IBM DateItem: Home</p>
 
 <h3>資料查詢:</h3>
 <%-- 錯誤表列 --%>
@@ -25,25 +25,25 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllEmp.jsp'>List</a> all Emps. </li> <br><br>
+  <li><a href='listAllDateItem.jsp'>List</a> all DateItems. </li> <br><br>
   
   <li>
-    <FORM METHOD="post" ACTION="emp.do" >
+    <FORM METHOD="post" ACTION="dateItem.do" >
         <b>輸入員工編號 (如7001):</b>
-        <input type="text" name="empno">
+        <input type="text" name="dateItemNo">
         <input type="submit" value="送出">
         <input type="hidden" name="action" value="getOne_For_Display">
     </FORM>
   </li>
 
-  <jsp:useBean id="empSvc" scope="page" class="com.emp.model.EmpService" />
+  <jsp:useBean id="dateItemSvc" scope="page" class="com.dateitem.model.DateItemService" />
    
   <li>
-     <FORM METHOD="post" ACTION="emp.do" >
+     <FORM METHOD="post" ACTION="dateItem.do" >
        <b>選擇員工編號:</b>
-       <select size="1" name="empno">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.empno}">${empVO.empno}
+       <select size="1" name="dateItemNo">
+         <c:forEach var="dateItemVO" items="${dateItemSvc.all}" > 
+          <option value="${dateItemVO.dateItemNo}">${dateItemVO.dateItemNo}
          </c:forEach>   
        </select>
        <input type="submit" value="送出">
@@ -52,11 +52,11 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="emp.do" >
+     <FORM METHOD="post" ACTION="dateItem.do" >
        <b>選擇員工姓名:</b>
-       <select size="1" name="empno">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.empno}">${empVO.ename}
+       <select size="1" name="dateItemNo">
+         <c:forEach var="dateItemVO" items="${dateItemSvc.all}" > 
+          <option value="${dateItemVO.dateItemNo}">${dateItemVO.dateItemNo}
          </c:forEach>   
        </select>
        <input type="submit" value="送出">
@@ -69,7 +69,7 @@
 <h3>員工管理</h3>
 
 <ul>
-  <li><a href='addEmp.jsp'>Add</a> a new Emp.</li>
+  <li><a href='addDateItem.jsp'>Add</a> a new DateItem.</li>
 </ul>
 
 </body>
