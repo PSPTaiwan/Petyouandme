@@ -53,6 +53,29 @@ DateItemVO dateItemVO = (DateItemVO) request.getAttribute("dateItemVO");
 			</c:forEach>
 		</select></td>
 	</tr>
+	
+	
+		<tr>
+		<jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
+		<td>選擇會員:<font color=red><b>*</b></font></td>
+		<td><select size="1" name="memno">
+			<c:forEach var="mem" items="${memberSvc.all}">
+				<option value="${mem.memNo}" >${mem.memNo}
+			</c:forEach>
+		</select></td>
+	</tr>
+	
+			<tr>
+		<jsp:useBean id="restSvc" scope="page" class="com.restaurant.model.RestaurantService" />
+		<td>選擇餐廳:<font color=red><b>*</b></font></td>
+		<td><select size="1" name="restno">
+			<c:forEach var="rest" items="${restSvc.all}">
+				<option value="${rest.restNo}" >${rest.restName}
+			</c:forEach>
+		</select></td>
+	</tr>
+	
+	
 <!-- 	<tr> -->
 <%-- 		<%java.sql.Date date_SQL = new java.sql.Date(System.currentTimeMillis());%> --%>
 <%-- 		<c:set scope="page" var="hiredate" value="<%=date_SQL%>"></c:set> --%>

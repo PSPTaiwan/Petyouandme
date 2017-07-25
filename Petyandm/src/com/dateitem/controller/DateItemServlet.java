@@ -203,34 +203,34 @@ public class DateItemServlet extends HttpServlet {
 
 			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-				String ename = req.getParameter("ename").trim();
-				String job = req.getParameter("job").trim();
+				String memeber = req.getParameter("member").trim();
+				String restno = req.getParameter("restno").trim();
 				
-				java.sql.Date hiredate = null;
-				try {
-					hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-				} catch (IllegalArgumentException e) {
-					hiredate=new java.sql.Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入日期!");
-				}
-				
-				Double sal = null;
-				try {
-					sal = new Double(req.getParameter("sal").trim());
-				} catch (NumberFormatException e) {
-					sal = 0.0;
-					errorMsgs.add("薪水請填數字.");
-				}
-				
-				Double comm = null;
-				try {
-					comm = new Double(req.getParameter("comm").trim());
-				} catch (NumberFormatException e) {
-					comm = 0.0;
-					errorMsgs.add("獎金請填數字.");
-				}
-				
-				Integer deptno = new Integer(req.getParameter("deptno").trim());
+//				java.sql.Date hiredate = null;
+//				try {
+//					hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
+//				} catch (IllegalArgumentException e) {
+//					hiredate=new java.sql.Date(System.currentTimeMillis());
+//					errorMsgs.add("請輸入日期!");
+//				}
+//				
+//				Double sal = null;
+//				try {
+//					sal = new Double(req.getParameter("sal").trim());
+//				} catch (NumberFormatException e) {
+//					sal = 0.0;
+//					errorMsgs.add("薪水請填數字.");
+//				}
+//				
+//				Double comm = null;
+//				try {
+//					comm = new Double(req.getParameter("comm").trim());
+//				} catch (NumberFormatException e) {
+//					comm = 0.0;
+//					errorMsgs.add("獎金請填數字.");
+//				}
+//				
+				Integer memno = new Integer(req.getParameter("memno").trim());
 
 				DateItemVO dateItemVO = new DateItemVO();
 				dateItemVO.setEname(ename);
@@ -244,14 +244,15 @@ public class DateItemServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("dateItemVO", dateItemVO); // 含有輸入格式錯誤的dateItemVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/addEmp.jsp");
+							.getRequestDispatcher("/dateitem/addDateItem.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				
 				/***************************2.開始新增資料***************************************/
+				
 				DateItemService dateItemSvc = new DateItemService();
-				dateItemVO = dateItemSvc.addEmp(ename, job, hiredate, sal, comm, deptno);
+				dateItemVO = dateItemSvc.add(ename, job, hiredate, sal, comm, deptno);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/emp/listAllEmp.jsp";
