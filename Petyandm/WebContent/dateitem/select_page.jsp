@@ -28,7 +28,7 @@
   <li><a href='listAllDateItem.jsp'>List</a> all DateItems. </li> <br><br>
   
   <li>
-    <FORM METHOD="post" ACTION="dateItem.do" >
+    <FORM METHOD="post" ACTION="dateitem.do" >
         <b>輸入員工編號 (如7001):</b>
         <input type="text" name="dateItemNo">
         <input type="submit" value="送出">
@@ -39,7 +39,7 @@
   <jsp:useBean id="dateItemSvc" scope="page" class="com.dateitem.model.DateItemService" />
    
   <li>
-     <FORM METHOD="post" ACTION="dateItem.do" >
+     <FORM METHOD="post" ACTION="dateitem.do" >
        <b>選擇員工編號:</b>
        <select size="1" name="dateItemNo">
          <c:forEach var="dateItemVO" items="${dateItemSvc.all}" > 
@@ -52,7 +52,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="dateItem.do" >
+     <FORM METHOD="post" ACTION="dateitem.do" >
        <b>選擇員工姓名:</b>
        <select size="1" name="dateItemNo">
          <c:forEach var="dateItemVO" items="${dateItemSvc.all}" > 
@@ -68,9 +68,15 @@
 
 <h3>員工管理</h3>
 
-<ul>
-  <li><a href='addDateItem.jsp'>Add</a> a new DateItem.</li>
-</ul>
+
+<!--   <li><a href='addDateItem.jsp'>Add</a> a new DateItem.</li> -->
+<FORM METHOD="post" ACTION="dateitem.do">
+<input type="datetime-local" name="time">
+<ul><li><input type="submit" value="上架約會商品"></li></ul>
+<input type="hidden" name="action" value="check_Seller">
+</FORM>
+
+
 
 </body>
 
