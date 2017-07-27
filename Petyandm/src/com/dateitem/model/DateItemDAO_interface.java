@@ -9,6 +9,7 @@ import java.util.List;
 		void delete(int dateItemNo);
 		DateItemVO findByPk(int dateItemNo);
 		List<DateItemVO> getAll();
+		List<DateItemVO> getAllItems();
 	}
 	
 

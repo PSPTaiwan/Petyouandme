@@ -39,7 +39,7 @@ String tmax = sdf2.format(timemax);
 <%@ include file="sidelist.file"%>
 
 
-<div class="col-md-offset-1 col-md-10>
+<div class="col-md-offset-1 col-md-8">
 
 <h4>選擇商品內容:<font color=red><b>*</b></font>為必填欄位</h4>
 <%-- 錯誤表列 --%>
@@ -54,7 +54,7 @@ String tmax = sdf2.format(timemax);
 </c:if>
 
 <form action="dateitem.do" method=post enctype="multipart/form-data">
-<table>
+<table class="table">
 	<tr>
 		<td>賣家會員編號:<font color=red><b>*</b></font></td>
 		<td><input type="TEXT" name="sellerNo" size="45" 
@@ -131,6 +131,9 @@ String tmax = sdf2.format(timemax);
 </FORM>
 
 </div>
+<BR>
+<BR>
+<BR>
 
 <%@ include file="footer.file"%>
 

@@ -40,6 +40,7 @@ public class DateItemDAO implements DateItemDAO_interface{
 	private static final String DELETE_STMT = "DELETE FROM DATEITEM WHERE DATEITEMNO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM DATEITEM WHERE DATEITEMNO = ?";
 	private static final String GET_ALL = "SELECT * FROM DATEITEM";
+	private static final String GET_ALL_ITEMS = " SELECT * FROM DATEITEM WHERE DATEITEMSHOW = 0";
 	
 	
 	
@@ -282,6 +283,74 @@ public class DateItemDAO implements DateItemDAO_interface{
 
 	@Override
 	public List<DateItemVO> getAll() {
+		List<DateItemVO> dateItemList = new ArrayList<>();
+		PreparedStatement pstmt=null;
+		Connection con=null;
+		ResultSet rs=null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt=con.prepareStatement(GET_ALL);
+			rs=pstmt.executeQuery();
+			while(rs.next()){
+				DateItemVO dateItemVO=new DateItemVO();
+				dateItemVO.setDateItemNo(rs.getInt("dateItemNo"));
+				dateItemVO.setSellerNo(rs.getInt("sellerNo"));
+				dateItemVO.setRestListNo(rs.getInt("restListNo"));
+				dateItemVO.setDateItemTitle(rs.getString("dateItemTitle"));
+				dateItemVO.setDateItemImg(rs.getBytes("dateItemImg"));
+				dateItemVO.setDateItemText(rs.getString("dateItemText"));
+				dateItemVO.setDateItemTime(rs.getTimestamp("dateItemTime"));
+				dateItemVO.setDateMeetingTime(rs.getTimestamp("dateMeetingTime"));
+				dateItemVO.setDateItemLocate(rs.getString("dateItemLocate"));
+				dateItemVO.setDateItemPeople(rs.getInt("dateItemPeople"));
+				dateItemVO.setHasMate(rs.getBoolean("hasMate"));
+				dateItemVO.setDateItemPrice(rs.getInt("dateItemPrice"));
+				dateItemVO.setDateItemStatus(rs.getInt("dateItemStatus"));
+				dateItemVO.setDateItemShow(rs.getInt("dateItemShow"));
+				dateItemVO.setDateItemViewer(rs.getInt("dateItemShow"));
+				dateItemVO.setBuyerNo(rs.getInt("buyerNo"));
+				dateItemVO.setIsQRCChecked(rs.getBoolean("isQRCChecked"));
+				dateItemVO.setBuyerRep(rs.getInt("buyerRep"));
+				dateItemVO.setSellerRep(rs.getInt("SellerRep"));
+				dateItemVO.setIsInstantDate(rs.getBoolean("isInstantDate"));
+				dateItemVO.setPetNo(rs.getInt("petNo"));
+				dateItemList.add(dateItemVO);		
+			}
+			
+		}  catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return dateItemList;
+	}
+	
+	//getAllItems是show出所有上架狀態=0的商品
+
+	public List<DateItemVO> getAllItems() {
 		List<DateItemVO> dateItemList = new ArrayList<>();
 		PreparedStatement pstmt=null;
 		Connection con=null;

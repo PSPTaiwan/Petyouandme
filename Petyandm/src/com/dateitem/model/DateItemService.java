@@ -90,7 +90,11 @@ public class DateItemService {
 		return dao.findByPk(dateItemNo);
 	}
 
-	public List<DateItemVO> getAll() {
+	public List<DateItemVO> getAll(){
 		return dao.getAll();
+	}
+	//getAllItems是顯示上架狀態=0的商品
+	public List<DateItemVO> getAllItems(){
+		return dao.getAllItems();
 	}
 }

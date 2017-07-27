@@ -1,84 +1,81 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page isELIgnored="false" %>
+<%@ page import="com.dateitem.model.*"%>
+<%@ page import="com.restaurant.model.*" %>
+<%@ page import="com.member.model.*" %>
+<%@ page import="java.util.*"%>
+
+<%@ include file="header.file"%>
+
+
+<%
+	MemberService mSvc = new MemberService();
+    DateItemService dSvc = new DateItemService();
+    List<DateItemVO> dlist = dSvc.getAllItems();
+    pageContext.setAttribute("dlist",dlist);
+%>
+
+
 
 <html>
 <head><title>IBM DateItem: Home</title></head>
 <body bgcolor='white'>
 
-<table border='1' cellpadding='5' cellspacing='0' width='400'>
-  <tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
-    <td><h3>IBM DateItem: Home</h3><font color=red>( MVC )</font></td>
-  </tr>
+<%@ include file="nav.file"%>
+<%@ include file="sidelist.file"%>
+
+<div class="col-sm-offset-1 col-sm-8">
+<table class="table">
+<tr><td> <select class="w3-select selectpicker" name="option">
+    <option value="" disabled selected>請選擇地點</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select></td>
+  <td><select class="w3-select selectpicker" name="option">
+    <option value="" disabled selected>請選擇主人</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option>
+  </select></td>
+  <td><select class="w3-select selectpicker" name="option">
+    <option value="" disabled selected>請選擇寵物</option>
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+    <option value="3">Option 3</option></select>
+  </td>
+  <td><button class="btn btn-lg btn-warning glyphicon glyphicon-search"> </button>
+  </td></tr>
+  
+  
+  
+	<tr>
+		<th>圖片</th>
+<!-- 	<th>會員暱稱</th> -->
+		<th>約會編號</th>
+		<th>時間</th>
+		<th>賣家編號</th>
+		<th>價格</th>
+		<th>餐廳</th>
+	</tr>
+<c:forEach var="dateitem" items="${dlist}">
+	<tr align='center' valign='middle'>
+		<td><img id="allitemsimg" src="<%=request.getContextPath()%>/ImgReader?dateitemNo=${dateitem.dateItemNo}"></td>
+			<td>${dateitem.dateItemNo}</td>
+			<td>${dateitem.dateMeetingTime}</td>
+			<td>${dateitem.sellerNo}</td>
+			<td>${dateitem.dateItemPrice}</td>
+			<td>${dateitem.restListNo}</td>
+		</tr>
+  </c:forEach>
 </table>
-
-<p>This is the Home page for IBM DateItem: Home</p>
-
-<h3>資料查詢:</h3>
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font color='red'>請修正以下錯誤:
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li>${message}</li>
-		</c:forEach>
-	</ul>
-	</font>
-</c:if>
-
-<ul>
-  <li><a href='listAllDateItem.jsp'>List</a> all DateItems. </li> <br><br>
-  
-  <li>
-    <FORM METHOD="post" ACTION="dateitem.do" >
-        <b>輸入員工編號 (如7001):</b>
-        <input type="text" name="dateItemNo">
-        <input type="submit" value="送出">
-        <input type="hidden" name="action" value="getOne_For_Display">
-    </FORM>
-  </li>
-
-  <jsp:useBean id="dateItemSvc" scope="page" class="com.dateitem.model.DateItemService" />
-   
-  <li>
-     <FORM METHOD="post" ACTION="dateitem.do" >
-       <b>選擇員工編號:</b>
-       <select size="1" name="dateItemNo">
-         <c:forEach var="dateItemVO" items="${dateItemSvc.all}" > 
-          <option value="${dateItemVO.dateItemNo}">${dateItemVO.dateItemNo}
-         </c:forEach>   
-       </select>
-       <input type="submit" value="送出">
-       <input type="hidden" name="action" value="getOne_For_Display">
-    </FORM>
-  </li>
-  
-  <li>
-     <FORM METHOD="post" ACTION="dateitem.do" >
-       <b>選擇員工姓名:</b>
-       <select size="1" name="dateItemNo">
-         <c:forEach var="dateItemVO" items="${dateItemSvc.all}" > 
-          <option value="${dateItemVO.dateItemNo}">${dateItemVO.dateItemNo}
-         </c:forEach>   
-       </select>
-       <input type="submit" value="送出">
-       <input type="hidden" name="action" value="getOne_For_Display">
-     </FORM>
-  </li>
-</ul>
+</div>
 
 
-<h3>員工管理</h3>
-
-
-<!--   <li><a href='addDateItem.jsp'>Add</a> a new DateItem.</li> -->
-<FORM METHOD="post" ACTION="dateitem.do">
-<ul><li><input type="submit" value="上架約會商品"></li></ul>
-<input type="hidden" name="action" value="check_Seller">
-</FORM>
+<%@ include file="footer.file"%>
 
 
 
-</body>
 
-</html>
+
