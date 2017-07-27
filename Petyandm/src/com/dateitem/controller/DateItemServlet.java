@@ -151,7 +151,7 @@ public class DateItemServlet extends HttpServlet {
 				int restListNo = Integer.parseInt(req.getParameter("restListNo"));
 				int petNo = Integer.parseInt(req.getParameter("petNo"));
 				int dateItemPeople = Integer.parseInt(req.getParameter("dateItemPeople"));
-				boolean hasMate = Boolean.parseBoolean((req.getParameter("hasMate")));
+				Boolean hasMate = Boolean.parseBoolean((req.getParameter("hasMate")));
 				int dateItemPrice = Integer.parseInt(req.getParameter("dateItemPrice"));
 				int dateItemStatus = 0 ;
 				int dateItemShow = 0;
@@ -169,8 +169,10 @@ public class DateItemServlet extends HttpServlet {
 				System.out.println(dateItemTime);
 				System.out.println(dateMeetingTime);
 				System.out.println(dateItemPeople);
+				System.out.println(hasMate);
 				System.out.println(dateItemPrice);
 				System.out.println(dateItemStatus);
+				System.out.println("===================");
 				System.out.println(dateItemShow);
 				System.out.println(dateItemViewer);
 				System.out.println(buyerNo);
@@ -188,10 +190,11 @@ public class DateItemServlet extends HttpServlet {
 				
 				
 				DateItemService dateItemSvc = new DateItemService();
+				System.out.println("準備新增");
 				dateItemVO = dateItemSvc.addDateItem(sellerno, restListNo, dateItemTitle, dateItemImg, dateItemText, dateItemTime, dateMeetingTime, dateItemLocate, dateItemPeople, hasMate, dateItemPrice, dateItemStatus, dateItemShow, dateItemViewer, buyerNo, isQRCChecked, buyerRep, sellerRep, isInstantDate, petNo);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "www.yahoo.com.tw";
+				String url = "/dateitem/select_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				

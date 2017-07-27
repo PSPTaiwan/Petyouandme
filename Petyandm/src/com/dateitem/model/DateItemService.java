@@ -34,6 +34,7 @@ public class DateItemService {
 		dateItemVO.setHasMate(hasMate);
 		dateItemVO.setDateItemPrice(dateItemPrice);
 		dateItemVO.setDateItemStatus(dateItemStatus);
+		dateItemVO.setDateItemShow(dateItemShow);
 		dateItemVO.setDateItemViewer(dateItemViewer);
 		dateItemVO.setBuyerNo(buyerNo);
 		dateItemVO.setIsQRCChecked(isQRCChecked);
@@ -41,7 +42,9 @@ public class DateItemService {
 		dateItemVO.setSellerRep(sellerRep);
 		dateItemVO.setIsInstantDate(isInstantDate);
 		dateItemVO.setPetNo(petNo);
+		System.out.println("rdy to call dao.add");
 		dao.add(dateItemVO);
+		System.out.println("suppose not to be here");
 		
 		return dateItemVO;
 	}
