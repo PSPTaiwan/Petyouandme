@@ -29,7 +29,7 @@ public class DateItemVO implements Serializable{
 	private Boolean isInstantDate;
 	private Integer petNo;
 	
-	DateItemVO(){}
+	public DateItemVO(){};
 
 	public DateItemVO(Integer dateItemNo, Integer sellerNo, Integer restListNo, String dateItemTitle, byte[] dateItemImg,
 			String dateItemText, Timestamp dateItemTime, Timestamp dateMeetingTime, String dateItemLocate, Integer dateItemPeople,

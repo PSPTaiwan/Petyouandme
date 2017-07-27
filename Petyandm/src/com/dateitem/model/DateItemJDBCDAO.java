@@ -357,7 +357,7 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 		dateItemVO.setDateItemImg(testImg);
 		dateItemVO.setDateItemText("22來進行一場午後的約會吧測試測試");
 		
-		GregorianCalendar cal = new GregorianCalendar(2017,7,31,18,30,59);
+		GregorianCalendar cal = new GregorianCalendar(2017,07,31,18,30,59);
 		java.util.Date ud = cal.getTime();
 		Timestamp ts= new Timestamp(ud.getTime());
 		
@@ -399,30 +399,30 @@ public class DateItemJDBCDAO implements DateItemDAO_interface{
 //
 //		
 //		
-//		dateItemVO = dao.findByPk(4006);
-//		dateItemVO.setDateItemTime(ts);
-//		System.out.println(dateItemVO.getDateItemLocate());
-//		System.out.println(dateItemVO.getDateItemText());
-//		System.out.println(dateItemVO.getDateItemNo());
-//		System.out.println(dateItemVO.getDateItemPrice());
-//		System.out.println(dateItemVO.getDateItemTime());
-//		System.out.println(dateItemVO.getDateMeetingTime());
-//		
+		dateItemVO = dao.findByPk(4006);
+		dateItemVO.setDateItemTime(ts);
+		System.out.println(dateItemVO.getDateItemLocate());
+		System.out.println(dateItemVO.getDateItemText());
+		System.out.println(dateItemVO.getDateItemNo());
+		System.out.println(dateItemVO.getDateItemPrice());
+		System.out.println(dateItemVO.getDateItemTime());
+		System.out.println(dateItemVO.getDateMeetingTime());
+		
 //		
 //		//getAll
-		List<DateItemVO> dateItemList = dao.getAll();
-		for(DateItemVO dateItem : dateItemList){
-		System.out.println(dateItem.getDateItemNo());
-		System.out.println(dateItem.getDateItemTitle());
-		System.out.println(dateItem.getDateItemPrice());
-		System.out.println(dateItem.getSellerNo());
-		System.out.println(dateItem.getDateItemShow());
-		System.out.println(dateItem.getDateItemText());
-		System.out.println(dateItem.getRestListNo());
-		System.out.println(dateItem.getDateMeetingTime());
-		System.out.println(dateItem.getDateItemTime());
-		System.out.println(dateItem.getIsInstantDate());
-	}
+//		List<DateItemVO> dateItemList = dao.getAll();
+//		for(DateItemVO dateItem : dateItemList){
+//		System.out.println(dateItem.getDateItemNo());
+//		System.out.println(dateItem.getDateItemTitle());
+//		System.out.println(dateItem.getDateItemPrice());
+//		System.out.println(dateItem.getSellerNo());
+//		System.out.println(dateItem.getDateItemShow());
+//		System.out.println(dateItem.getDateItemText());
+//		System.out.println(dateItem.getRestListNo());
+//		System.out.println(dateItem.getDateMeetingTime());
+//		System.out.println(dateItem.getDateItemTime());
+//		System.out.println(dateItem.getIsInstantDate());
+//	}
 		
 		
 	}

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
 <html>
 <head><title>IBM DateItem: Home</title></head>
 <body bgcolor='white'>
@@ -71,7 +73,6 @@
 
 <!--   <li><a href='addDateItem.jsp'>Add</a> a new DateItem.</li> -->
 <FORM METHOD="post" ACTION="dateitem.do">
-<input type="datetime-local" name="time">
 <ul><li><input type="submit" value="上架約會商品"></li></ul>
 <input type="hidden" name="action" value="check_Seller">
 </FORM>
