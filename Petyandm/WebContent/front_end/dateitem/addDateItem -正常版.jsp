@@ -7,8 +7,6 @@
 <%@ page import="com.restaurant.model.*" %>
 <%@ page isELIgnored="false" %>
 
-<%@ include file="header.file"%>
-
 <%
 DateItemVO dateItemVO = (DateItemVO) request.getAttribute("dateItemVO");
 Long now = System.currentTimeMillis();
@@ -23,23 +21,25 @@ String tmax = sdf2.format(timemax);
 
 %>
 
-
-
-
-
+<html>
 <head>
 <title>工程師畫面之約會商品上架</title></head>
 <link rel="stylesheet" type="text/css" href="js/calendar.css">
 <script language="JavaScript" src="js/calendarcode.js"></script>
 <div id="popupcalendar" class="text"></div>
 
+<body bgcolor='white'>
 
-
-<%@ include file="nav.file"%>
-<%@ include file="sidelist.file"%>
-
-
-<div class="col-md-offset-1 col-md-10>
+<table border='1' cellpadding='5' cellspacing='0' width='400'>
+	<tr bgcolor='#CCCCFF' align='center' valign='middle' height='20'>
+		<td>
+		<h3>工程師畫面之約會商品上架-addDateItem.jsp</h3>
+		</td>
+		<td>
+		   <a href="select_page.jsp">回首頁</a>
+	    </td>
+	</tr>
+</table>
 
 <h4>選擇商品內容:<font color=red><b>*</b></font>為必填欄位</h4>
 <%-- 錯誤表列 --%>
@@ -129,8 +129,6 @@ String tmax = sdf2.format(timemax);
 	
 </table>
 </FORM>
+</body>
 
-</div>
-
-<%@ include file="footer.file"%>
-
+</html>

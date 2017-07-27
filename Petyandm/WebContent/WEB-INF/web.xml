@@ -27,7 +27,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DateItemServlet</servlet-name>
-		<url-pattern>/dateitem/dateitem.do</url-pattern>
+		<url-pattern>/front_end/dateitem/dateitem.do</url-pattern>
 	</servlet-mapping>
 
 </web-app>

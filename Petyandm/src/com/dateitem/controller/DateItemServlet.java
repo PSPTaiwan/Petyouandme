@@ -45,11 +45,9 @@ public class DateItemServlet extends HttpServlet {
 			MemberService memSvc = new MemberService();
 			List<Pet> myPetList = new ArrayList<Pet>();
 			myPetList = memSvc.getPetsByMemNo(5001);
-			System.out.println(myPetList.size());
-			
 			
 			req.setAttribute("myPetList", myPetList);         
-			String url = "/dateitem/addDateItem.jsp";
+			String url = "/front_end/dateitem/addDateItem.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 										
@@ -99,7 +97,6 @@ public class DateItemServlet extends HttpServlet {
 				
 				
 				
-				try {
 					if(part.getSize()!=0){
 						fileName = getFileNameFromPart(part);
 						System.out.println(part.equals(null));
@@ -107,11 +104,8 @@ public class DateItemServlet extends HttpServlet {
 							dateItemImg = getByteArrayImg(part);
 							System.out.println("圖片格式正確!");
 						}
-					}
-				} catch (Exception e) {
-					errorMsgs.add("請輸入內容");
-					System.out.println("上傳約會圖片錯誤");
-					e.printStackTrace();
+					}else {
+					errorMsgs.add("請上船圖片");
 				}
 				
 				
@@ -135,9 +129,16 @@ public class DateItemServlet extends HttpServlet {
 				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
+					//重新夾帶寵物資訊
+					MemberService memSvc = new MemberService();
+					List<Pet> myPetList = new ArrayList<Pet>();
+					myPetList = memSvc.getPetsByMemNo(5001);
+					
+					req.setAttribute("myPetList", myPetList);
+					
 					req.setAttribute("dateItemVO", dateItemVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/dateitem/addDateItem.jsp");
+							.getRequestDispatcher("/front_end/dateitem/addDateItem.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -153,6 +154,7 @@ public class DateItemServlet extends HttpServlet {
 				int dateItemPeople = Integer.parseInt(req.getParameter("dateItemPeople"));
 				Boolean hasMate = Boolean.parseBoolean((req.getParameter("hasMate")));
 				int dateItemPrice = Integer.parseInt(req.getParameter("dateItemPrice"));
+				//給變數在資料庫中的初始值
 				int dateItemStatus = 0 ;
 				int dateItemShow = 0;
 				int dateItemViewer = 0;
@@ -161,26 +163,27 @@ public class DateItemServlet extends HttpServlet {
 				int buyerRep = 0 ;
 				int sellerRep = 0 ;
 				boolean isInstantDate = false;
-				
-				System.out.println(sellerno);
-				System.out.println(restListNo);
-				System.out.println(dateItemTitle);
-				System.out.println(dateItemText);
-				System.out.println(dateItemTime);
-				System.out.println(dateMeetingTime);
-				System.out.println(dateItemPeople);
-				System.out.println(hasMate);
-				System.out.println(dateItemPrice);
-				System.out.println(dateItemStatus);
-				System.out.println("===================");
-				System.out.println(dateItemShow);
-				System.out.println(dateItemViewer);
-				System.out.println(buyerNo);
-				System.out.println(isQRCChecked);
-				System.out.println(buyerRep);
-				System.out.println(sellerRep);
-				System.out.println(isInstantDate);
-				System.out.println(petNo);
+
+				//檢查是否抓到值
+//				System.out.println(sellerno);
+//				System.out.println(restListNo);
+//				System.out.println(dateItemTitle);
+//				System.out.println(dateItemText);
+//				System.out.println(dateItemTime);
+//				System.out.println(dateMeetingTime);
+//				System.out.println(dateItemPeople);
+//				System.out.println(hasMate);
+//				System.out.println(dateItemPrice);
+//				System.out.println(dateItemStatus);
+//				System.out.println("===================");
+//				System.out.println(dateItemShow);
+//				System.out.println(dateItemViewer);
+//				System.out.println(buyerNo);
+//				System.out.println(isQRCChecked);
+//				System.out.println(buyerRep);
+//				System.out.println(sellerRep);
+//				System.out.println(isInstantDate);
+//				System.out.println(petNo);
 				
 				
 				RestaurantService rSvc = new RestaurantService();
@@ -194,15 +197,15 @@ public class DateItemServlet extends HttpServlet {
 				dateItemVO = dateItemSvc.addDateItem(sellerno, restListNo, dateItemTitle, dateItemImg, dateItemText, dateItemTime, dateMeetingTime, dateItemLocate, dateItemPeople, hasMate, dateItemPrice, dateItemStatus, dateItemShow, dateItemViewer, buyerNo, isQRCChecked, buyerRep, sellerRep, isInstantDate, petNo);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/dateitem/select_page.jsp";
+				String url = "/front_end/dateitem/select_page.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
-				errorMsgs.add("錯在哪");
+				errorMsgs.add("");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/dateitem/addDateItem.jsp");
+						.getRequestDispatcher("/front_end/dateitem/addDateItem.jsp");
 				failureView.forward(req, res);
 			}
 		}
